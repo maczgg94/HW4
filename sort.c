@@ -9,7 +9,12 @@ __attribute__ ((weak))
 int compare(int a, int b) {
 	    return a - b;
 }
-
+__attribute__ ((weak))
+int cmpfunc (const void * a, const void * b)
+{
+   return ( *(int*)a - *(int*)b );
+}
+__attribute__ ((weak))
 void bubble_sort(int *numbers, unsigned count) {
 	int temp;
 	int i, j;
@@ -24,7 +29,7 @@ void bubble_sort(int *numbers, unsigned count) {
 		}
 	}
 }
-
+__attribute__ ((weak))
 void insertion_sort(int *numbers, unsigned count) {
 	int new[count];
 	unsigned new_count = 0;
@@ -56,6 +61,13 @@ void insertion_sort(int *numbers, unsigned count) {
 
 	memcpy(numbers, new, count*sizeof(int));
 }
+__attribute__ ((weak))
+void useqsort(int *numbers,unsigned count)
+{
 
-sorting_fn sorting_fns[] = {bubble_sort, insertion_sort, NULL};
+qsort(numbers,count,sizeof(int),cmpfunc);
+
+}
+__attribute__ ((weak))
+sorting_fn sorting_fns[] = {bubble_sort, insertion_sort, useqsort,NULL};
 
